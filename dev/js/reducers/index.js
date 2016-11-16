@@ -1,7 +1,8 @@
 import {combineReducers} from 'redux';
+import ArticlesReducer from './articles_reducer'
 
 const allReducers = combineReducers({
-  state: (state = {}) => state
+  articles: ArticlesReducer
 });
 
 export default allReducers
