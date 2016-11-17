@@ -1,8 +1,20 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {reduxForm} from 'redux-form';
 import {createArticle} from '../actions/index';
 
 class NewArticle extends Component{
+
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
+  onSubmit(props){
+    this.props.createArticle(props)
+      .then(() => {
+        this.context.router.push('/');
+      });
+  }
+
   render(){
     const {fields:{title}, handleSubmit} = this.props;
 
@@ -10,7 +22,7 @@ class NewArticle extends Component{
       <div className="container">
       <h1>New Article Create Page</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <div className="form-group">
           <label>Title</label>
           <input type="text" className="form-control" {...title} />
